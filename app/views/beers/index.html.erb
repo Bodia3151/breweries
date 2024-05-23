@@ -1,0 +1,38 @@
+<div class="container">
+  <h1>Beers</h1>
+
+  <div class="mb-3">
+    <input type="text" id="beer_search" class="form-control" placeholder="Search for beers...">
+  </div>
+</div>
+
+<%= turbo_frame_tag 'beers' do %>
+    <div id="beers" class="container">
+        <%= render @beers %>
+    </div>
+<% end %>
+
+<%= turbo_stream_from "beers" %>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const searchInput = document.getElementById('beer_search');
+
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.trim();
+
+            if (query.length >= 3) {
+                fetch(`/beers/search?name=${encodeURIComponent(query)}`, {
+                    headers: {
+                        'Accept': 'text/html'
+                    }
+                })
+                  .then(response => response.text())
+                  .then(html => {
+                      const turboFrame = document.querySelector('turbo-frame#beers');
+                      turboFrame.innerHTML = html;
+                  });
+            }
+        });
+    });
+</script>

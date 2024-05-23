@@ -1,0 +1,13 @@
+<div class="col">
+  <div class="card h-100">
+    <div class="card-body">
+      <h5 class="card-title"><%= beer.name %></h5>
+      <p class="card-text">
+        <strong>Brewery Type:</strong> <%= beer.brewery_type %><br>
+        <strong>Address:</strong> <%= beer.address_1 %>, <%= beer.city %>, <%= beer.country %><br>
+        <strong>Phone:</strong> <%= beer.phone %><br>
+        <strong>Website:</strong> <%= link_to beer.website_url, beer.website_url, target: "_blank" %>
+      </p>
+    </div>
+  </div>
+</div>
